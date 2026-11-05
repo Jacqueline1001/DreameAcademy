@@ -2736,7 +2736,7 @@ const TR={"es": {"f": [["aria-label=\"Dreame Academy, Personal Care\"", "aria-la
     out.push(src.slice(p)); src=out.join("");
   }
 /* ===== Dreame Academy · promoter tracking (only active for personal links #p-MX001) ===== */
-const TRACK_URL = "https://script.google.com/macros/s/AKfycbzim98dR14_50KQI-nljmQZbvMLV6H68-LA00CRYaScHB2t7c2oT8vAq0spOH2eBDZr/exec";   // ← paste the Google Apps Script web app URL here
+const TRACK_URLS = {"MX": "https://script.google.com/macros/s/AKfycbzim98dR14_50KQI-nljmQZbvMLV6H68-LA00CRYaScHB2t7c2oT8vAq0spOH2eBDZr/exec", "CL": "https://script.google.com/macros/s/AKfycbwFV52_4KUK4TNBSAEM_K1uQLwBg8fDfYX5ODdrz-H2zaUQSt-YGaXk-yzcGW_gL6wd/exec"};   // one Apps Script web app per country, by code prefix
 const TRACK_TOKEN = "dreame-academy-2026";
 window.TRK=(function(){
   const LS="academy-trk"; let st={};
@@ -2762,6 +2762,7 @@ window.TRK=(function(){
     }catch(e){return null}
   }
   function payload(){ return JSON.stringify({token:TRACK_TOKEN,code:st.code,lang:L,sec:st.sec,events:st.q.slice(0,200),snap:snap()}); }
+  const TRACK_URL = TRACK_URLS[st.code.slice(0,2)] || "";   // unknown country: data waits on the phone until a URL is set
   function flush(final){
     if(!/^https:\/\//.test(TRACK_URL)) return;
     if(!st.sec && !st.q.length && !final) return;
