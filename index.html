@@ -2804,6 +2804,8 @@ window.TRK=(function(){
   const LS="academy-trk"; let st={};
   try{st=JSON.parse(localStorage.getItem(LS)||"{}")}catch(e){}
   const saveSt=()=>{try{localStorage.setItem(LS,JSON.stringify(st))}catch(e){}};
+  if(/^#p-off$/i.test(location.hash||"")){ st={}; try{localStorage.removeItem(LS);localStorage.removeItem("academy-country")}catch(e){}   // #p-off = stop being registered on this phone
+    try{history.replaceState(null,"",location.pathname+location.search+"#inicio")}catch(e){location.hash="inicio"} }
   const m=(location.hash||"").match(/^#p-([a-z]{2}\d{2,4})$/i); let fresh=false;
   if(m){ if(st.code!==m[1].toUpperCase()){st={code:m[1].toUpperCase(),q:[],sec:0};} fresh=true; saveSt();
     try{history.replaceState(null,"",location.pathname+location.search+"#inicio")}catch(e){location.hash="inicio"} }
